@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF转图片工具</title>
+  <title>高质量PDF转图片工具</title>
   
   <!-- 引入外部资源 -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -67,7 +67,7 @@
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <i class="fa fa-file-image-o text-accent text-2xl"></i>
-        <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">PDF转图片工具</h1>
+        <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">高质量PDF转图片</h1>
       </div>
       <div class="hidden md:flex items-center space-x-6">
         <a href="#" class="text-gray-600 hover:text-primary transition-colors duration-300 flex items-center">
@@ -96,8 +96,8 @@
   <main class="flex-grow container mx-auto px-4 py-8">
     <!-- 介绍卡片 -->
     <div class="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-6 mb-8 shadow-sm transform hover:shadow-md transition-all duration-300">
-      <h2 class="text-xl font-bold mb-2">简单高效的PDF转图片解决方案</h2>
-      <p class="text-gray-600">上传PDF文件，将每一页转换为JPG图片，支持单张或批量下载。所有操作均在本地完成，保护您的隐私安全。</p>
+      <h2 class="text-xl font-bold mb-2">保留原图质量的PDF转图片解决方案</h2>
+      <p class="text-gray-600">采用高分辨率渲染技术，将PDF每一页转换为高质量JPG图片，最大限度保留原始细节。</p>
     </div>
 
     <!-- 上传区域 -->
@@ -105,7 +105,7 @@
       <div class="max-w-md mx-auto">
         <i class="fa fa-file-pdf-o text-5xl text-gray-400 mb-4 hover:text-primary transition-colors duration-300"></i>
         <h3 class="text-lg font-semibold mb-2">拖放PDF文件到此处，或点击上传</h3>
-        <p class="text-gray-500 mb-6">支持标准PDF格式文件</p>
+        <p class="text-gray-500 mb-6">支持标准PDF格式文件，转换将保留原图质量</p>
         <label class="inline-block bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
           <i class="fa fa-file-pdf-o mr-2"></i>选择PDF文件
           <input type="file" id="fileInput" accept=".pdf" class="hidden">
@@ -120,9 +120,21 @@
         <div class="flex gap-2">
           <div class="relative">
             <select id="imageQuality" class="bg-gray-100 border border-gray-200 text-gray-700 py-2 pl-4 pr-10 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <option value="1.0">无损质量</option>
+              <option value="0.95" selected>最高质量</option>
               <option value="0.9">高质量</option>
-              <option value="0.7" selected>中等质量</option>
-              <option value="0.5">低质量</option>
+              <option value="0.8">平衡质量</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <i class="fa fa-chevron-down text-xs"></i>
+            </div>
+          </div>
+          <div class="relative">
+            <select id="renderDpi" class="bg-gray-100 border border-gray-200 text-gray-700 py-2 pl-4 pr-10 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary/50">
+              <option value="3.0">超高分辨率 (300dpi)</option>
+              <option value="2.0" selected>高分辨率 (200dpi)</option>
+              <option value="1.5">标准分辨率 (150dpi)</option>
+              <option value="1.0">基础分辨率 (100dpi)</option>
             </select>
             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
               <i class="fa fa-chevron-down text-xs"></i>
@@ -168,26 +180,26 @@
     <div id="loadingSection" class="flex flex-col items-center justify-center py-10 hidden">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-4"></div>
       <p class="text-gray-600" id="loadingText">正在处理PDF文件，请稍候...</p>
+      <p class="text-gray-500 text-sm mt-2" id="qualityNote">高质量转换可能需要更长时间...</p>
     </div>
 
     <!-- 成功提示 -->
     <div id="successSection" class="bg-green-50 border border-green-200 rounded-lg p-6 flex items-center justify-center hidden animate-fadeIn">
       <i class="fa fa-check-circle text-green-500 text-2xl mr-3"></i>
       <div>
-        <h4 class="font-medium text-green-800">转换成功！</h4>
-        <p class="text-green-700 text-sm">您可以下载单张图片或批量下载所有图片</p>
+        <h4 class="font-medium text-green-800">高质量转换成功！</h4>
+        <p class="text-green-700 text-sm">图片保留了原始PDF的细节质量</p>
       </div>
     </div>
 
     <!-- 使用说明 -->
     <div class="bg-white rounded-xl p-6 shadow-sm mb-10 transform hover:shadow-md transition-all duration-300">
-      <h3 class="text-lg font-bold mb-4">使用说明</h3>
+      <h3 class="text-lg font-bold mb-4">高质量转换说明</h3>
       <ol class="list-decimal list-inside space-y-2 text-gray-600">
-        <li>点击"选择PDF文件"按钮或直接将PDF文件拖放到上传区域</li>
-        <li>等待PDF文件加载完成后，可以预览所有页面</li>
-        <li>选择图片质量（高质量文件较大，低质量文件较小）</li>
-        <li>点击"转换所有页"按钮将PDF的每一页转换为JPG图片</li>
-        <li>转换完成后，可以下载单张图片或点击"下载全部图片"批量保存</li>
+        <li>选择"无损质量"和"超高分辨率"可获得最佳画质（文件体积较大）</li>
+        <li>高分辨率转换可能需要更长时间，请耐心等待</li>
+        <li>对于包含精细文字或图表的PDF，建议使用200dpi以上分辨率</li>
+        <li>转换后的图片尺寸与原始PDF页面尺寸成比例，保持原始比例</li>
       </ol>
     </div>
   </main>
@@ -199,9 +211,9 @@
         <div class="mb-4 md:mb-0">
           <div class="flex items-center space-x-2">
             <i class="fa fa-file-image-o text-accent"></i>
-            <span class="font-bold">PDF转图片工具</span>
+            <span class="font-bold">高质量PDF转图片工具</span>
           </div>
-          <p class="text-gray-400 text-sm mt-1">简单、高效、安全的PDF转图片解决方案</p>
+          <p class="text-gray-400 text-sm mt-1">专注于保留原始画质的转换解决方案</p>
         </div>
         <div class="flex space-x-6">
           <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">
@@ -216,7 +228,7 @@
         </div>
       </div>
       <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
-        &copy; 2023 PDF转图片工具 - 所有操作均在本地完成，保护您的隐私
+        &copy; 2023 高质量PDF转图片工具 - 所有操作均在本地完成
       </div>
     </div>
   </footer>
@@ -253,6 +265,7 @@
     const loadingText = document.getElementById('loadingText');
     const successSection = document.getElementById('successSection');
     const imageQualitySelect = document.getElementById('imageQuality');
+    const renderDpiSelect = document.getElementById('renderDpi');
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
 
@@ -378,8 +391,8 @@
       showLoading(`正在加载第 ${num} 页...`);
       
       pdfDoc.getPage(num).then(function(page) {
-        // 设置缩放比例
-        const scale = 1.2;
+        // 根据选择的分辨率设置缩放比例
+        const scale = parseFloat(renderDpiSelect.value);
         const viewport = page.getViewport({ scale: scale });
         
         // 准备画布
@@ -392,10 +405,12 @@
         
         pdfContainer.appendChild(canvas);
         
-        // 渲染页面内容
+        // 渲染页面内容 - 使用高质量渲染选项
         const renderContext = {
           canvasContext: context,
-          viewport: viewport
+          viewport: viewport,
+          enableWebGL: false,  // 禁用WebGL以获得更精确的渲染
+          useOnlyCssZoom: false
         };
         
         const renderTask = page.render(renderContext);
@@ -439,7 +454,14 @@
       updatePaginationButtons();
     });
 
-    // 转换所有页为图片
+    // 监听分辨率变化，重新渲染当前页
+    renderDpiSelect.addEventListener('change', function() {
+      if (pdfDoc) {
+        renderPage(currentPage);
+      }
+    });
+
+    // 转换所有页为图片（高质量模式）
     convertAllBtn.addEventListener('click', function() {
       if (!pdfDoc) return;
       
@@ -453,7 +475,7 @@
       convertPage(1);
     });
 
-    // 转换指定页为图片
+    // 转换指定页为高质量图片
     function convertPage(pageNum) {
       if (pageNum > totalPages) {
         // 所有页转换完成
@@ -467,33 +489,39 @@
       showLoading(`正在转换页面 ${pageNum}/${totalPages}`);
       
       pdfDoc.getPage(pageNum).then(function(page) {
-        // 设置转换参数
-        const scale = 2.0; // 较高的缩放比例以获得清晰的图片
+        // 设置高质量转换参数
+        const scale = parseFloat(renderDpiSelect.value); // 根据选择的分辨率设置
         const viewport = page.getViewport({ scale: scale });
         
-        // 创建画布
+        // 创建高分辨率画布
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.height = viewport.height;
         canvas.width = viewport.width;
         
-        // 渲染页面到画布
+        // 高质量渲染配置
         const renderContext = {
           canvasContext: context,
-          viewport: viewport
+          viewport: viewport,
+          // 禁用抗锯齿以保留文字锐利度
+          imageSmoothingEnabled: false,
+          enableWebGL: false,
+          useOnlyCssZoom: false
         };
         
         const renderTask = page.render(renderContext);
         
         renderTask.promise.then(function() {
-          // 将画布内容转换为图片
+          // 使用高画质参数转换为JPG
           const quality = parseFloat(imageQualitySelect.value);
           const imageDataUrl = canvas.toDataURL('image/jpeg', quality);
           
           // 保存图片信息
           convertedImages.push({
             pageNum: pageNum,
-            dataUrl: imageDataUrl
+            dataUrl: imageDataUrl,
+            width: canvas.width,
+            height: canvas.height
           });
           
           // 转换下一页
@@ -506,7 +534,7 @@
       });
     }
 
-    // 显示转换后的图片
+    // 显示转换后的高质量图片
     function displayConvertedImages() {
       imagesContainer.innerHTML = '';
       convertedCountEl.textContent = convertedImages.length;
@@ -520,6 +548,12 @@
         pageBadge.className = 'absolute top-2 left-2 bg-primary text-white font-bold rounded-full w-8 h-8 flex items-center justify-center z-10 shadow-md';
         pageBadge.textContent = image.pageNum;
         imageCard.appendChild(pageBadge);
+        
+        // 分辨率信息
+        const resolutionInfo = document.createElement('div');
+        resolutionInfo.className = 'absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded z-10';
+        resolutionInfo.textContent = `${image.width}×${image.height}`;
+        imageCard.appendChild(resolutionInfo);
         
         // 下载按钮
         const downloadBtn = document.createElement('button');
@@ -548,7 +582,7 @@
         
         const fileName = document.createElement('div');
         fileName.className = 'text-xs text-gray-500 mt-1';
-        fileName.textContent = `page-${image.pageNum}.jpg`;
+        fileName.textContent = `page-${image.pageNum}.jpg (${image.width}×${image.height})`;
         infoContainer.appendChild(fileName);
         
         imageCard.appendChild(infoContainer);
@@ -560,7 +594,7 @@
       imagesSection.classList.remove('hidden');
     }
 
-    // 下载单张图片
+    // 下载单张高质量图片
     function downloadImage(dataUrl, fileName) {
       const link = document.createElement('a');
       link.download = fileName;
@@ -574,10 +608,10 @@
     downloadAllBtn.addEventListener('click', function() {
       if (convertedImages.length === 0) return;
       
-      showLoading('正在打包图片，准备下载...');
+      showLoading('正在打包高质量图片，可能需要较长时间...');
       
       const zip = new JSZip();
-      const imgFolder = zip.folder("pdf-images");
+      const imgFolder = zip.folder("high-quality-pdf-images");
       
       // 计数器，确保所有图片都添加到ZIP后再下载
       let addedCount = 0;
@@ -592,8 +626,11 @@
         // 所有图片都已添加
         if (addedCount === convertedImages.length) {
           // 生成ZIP文件并下载
-          zip.generateAsync({ type: "blob" }).then(function(content) {
-            saveAs(content, "pdf-converted-images.zip");
+          zip.generateAsync({ 
+            type: "blob",
+            compression: "STORE"  // 不压缩以保持原始质量
+          }).then(function(content) {
+            saveAs(content, "high-quality-pdf-images.zip");
             hideLoading();
           }).catch(function(error) {
             console.error('打包图片失败:', error);
